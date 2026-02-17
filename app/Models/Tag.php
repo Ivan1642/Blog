@@ -14,6 +14,6 @@ class Tag extends Model
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class); // Laravel usa la tabla pivot 'post_tag'
+        return $this->belongsToMany(Post::class);
     }
 }
