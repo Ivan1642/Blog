@@ -10,7 +10,13 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'category_id'];
+    protected $fillable = [
+        'title',
+        'slug',
+        'extract',
+        'body',
+        'category_id',
+    ];
 
     public function category()
     {
@@ -21,4 +27,10 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }
