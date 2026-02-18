@@ -32,7 +32,21 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $data = $request->validated();
+
         $data['slug'] = Str::slug($data['title']);
+
+        if ($request->hasFile('image_path')) {
+            $data['image_path'] = $request->file('image_path')
+                ->store('posts', 'public');
+        }
+
+        $data['is_published'] = $request->has('is_published');
+
+        if ($data['is_published']) {
+            $data['published_at'] = now();
+        } else {
+            $data['published_at'] = null;
+        }
 
         Post::create($data);
 
@@ -48,7 +62,21 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $data = $request->validated();
+
         $data['slug'] = Str::slug($data['title']);
+
+        if ($request->hasFile('image_path')) {
+            $data['image_path'] = $request->file('image_path')
+                ->store('posts', 'public');
+        }
+
+        $data['is_published'] = $request->has('is_published');
+
+        if ($data['is_published']) {
+            $data['published_at'] = now();
+        } else {
+            $data['published_at'] = null;
+        }
 
         $post->update($data);
 

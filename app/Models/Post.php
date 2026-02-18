@@ -16,7 +16,12 @@ class Post extends Model
         'extract',
         'body',
         'category_id',
+        'user_id',
+        'image_path',
+        'is_published',
+        'published_at'
     ];
+
 
     public function category()
     {
@@ -32,5 +37,11 @@ class Post extends Model
     {
         return 'slug';
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
 }
