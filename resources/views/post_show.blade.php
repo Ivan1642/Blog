@@ -13,15 +13,39 @@ use App\Models\User;
         <p><strong>Categoría:</strong> {{ $post->category->name }}</p>
     @endif
 
-    <p><strong>Autor:</strong> {{ User::find($post->user_id)->name }}</p>
+    <p><strong>Autor:</strong> {{ $post->user->name }}</p>
 
     <p><strong>Publicado:</strong> {{ $post->published_at }}</p>
 
     @if($post->image_path)
-        <img src="{{ asset($post->image_path) }}" alt="{{ $post->title }}">
+        <img src="{{ asset('storage/' . $post->image_path) }}" 
+             alt="{{ $post->title }}" 
+             width="300">
     @endif
 
     <p>{{ $post->body }}</p>
 
-    <a href="{{ route('posts.index') }}">Volver a Posts</a>
+    <br>
+
+    <a href="{{ route('posts.edit', $post) }}">
+        Editar
+    </a>
+
+    <br>
+
+    <form action="{{ route('posts.destroy', $post) }}" method="POST">
+        @csrf
+        @method('DELETE')
+
+        <button type="submit" onclick="return confirm('¿Seguro que quieres eliminar este post?')">
+            Eliminar
+        </button>
+    </form>
+
+    <br>
+    <br>
+
+    <a href="{{ route('posts.index') }}">
+       < Volver a Posts
+    </a>
 @endsection

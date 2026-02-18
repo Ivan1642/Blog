@@ -8,15 +8,22 @@ use App\Models\User;
 
 @section('content')
     <h1>Posts</h1>
+
+    <a href="{{ route('posts.create') }}">
+        Crear nuevo post
+    </a>
+
+    <br><br>
+
     <ul>
         @foreach($posts as $post)
             <li>
                 <a href="{{ route('posts.show', $post) }}">
                     {{ $post->title }}
-                </a>
+                </a> |
 
                 <a href="{{ route('posts.edit', $post) }}">
-                    ✏ Editar
+                    Editar
                 </a>
 
                 <br>
@@ -34,4 +41,3 @@ use App\Models\User;
 
     {{ $posts->links() }} {{-- paginación --}}
 @endsection
-
