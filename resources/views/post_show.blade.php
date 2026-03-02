@@ -32,8 +32,17 @@
     <br>
     <br>
     <a href="{{ route('posts.index') }}">
-        ← Volver a Posts
+        < Volver a Posts
     </a>
+    <br><br>
+    @if($post->tags->count())
+        <p><strong>Tags:</strong>
+            @foreach($post->tags as $tag)
+                <span>{{ $tag->name }}</span>
+            @endforeach
+        </p>
+    @endif
+    <br><br>
     <hr>
     <h2>Comentarios ({{ $post->comments->count() }})</h2>
 

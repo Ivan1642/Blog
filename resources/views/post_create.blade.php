@@ -60,6 +60,17 @@
     <input type="file" name="image_path">
     <br><br>
 
+    <label>Tags:</label>
+    <select name="tags[]" multiple>
+        @foreach(\App\Models\Tag::all() as $tag)
+            <option value="{{ $tag->id }}"
+                {{ collect(old('tags'))->contains($tag->id) ? 'selected' : '' }}>
+                {{ $tag->name }}
+            </option>
+        @endforeach
+    </select>
+    <br><br>
+
     <label>
         <input type="checkbox" name="is_published" value="1"
             {{ old('is_published') ? 'checked' : '' }}>

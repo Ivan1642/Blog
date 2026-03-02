@@ -33,22 +33,19 @@ class PostController extends Controller
     {
         $data = $request->validated();
 
-        $data['slug'] = Str::slug($data['title']);
+        $post = Post::create([
+            'title' => $data['title'],
+            'slug' => Str::slug($data['title']),
+            'extract' => $data['extract'] ?? null,
+            'body' => $data['body'],
+            'category_id' => $data['category_id'] ?? null,
+            'user_id' => $data['user_id'] ?? null,
+            'is_published' => $request->has('is_published'),
+        ]);
 
-        if ($request->hasFile('image_path')) {
-            $data['image_path'] = $request->file('image_path')
-                ->store('posts', 'public');
+        if ($request->tags) {
+            $post->tags()->sync($request->tags);
         }
-
-        $data['is_published'] = $request->has('is_published');
-
-        if ($data['is_published']) {
-            $data['published_at'] = now();
-        } else {
-            $data['published_at'] = null;
-        }
-
-        Post::create($data);
 
         return redirect()->route('posts.index');
     }

@@ -3,6 +3,7 @@
     use App\Http\Controllers\PostController;
     use App\Http\Controllers\CategoryController;
     use App\Http\Controllers\CommentController;
+    use App\Http\Controllers\TagController;
     
 
     Route::get('/', function () {
@@ -15,3 +16,4 @@
      ->name('comments.store');
     Route::delete('/posts/{post}/comments/{comment}', [CommentController::class, 'destroy'])
      ->name('comments.destroy');
+    Route::resource('tags', TagController::class);
